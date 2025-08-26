@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrendyTees - Cart</title>
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin:0; background:#f9fafb; color:#1f2937; display:flex; flex-direction:column; min-height:100vh; }
+    header { background:#1f2937; color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+    nav { display:flex; gap:1.5rem; align-items:center; font-weight:600; }
+    nav a { padding:0.5rem 0.75rem; border-radius:4px; transition:background 0.3s ease; color:white; text-decoration:none; }
+    nav a:hover { background:#2563eb; }
+    nav a.active { background:#2563eb; }
+    main { flex:1; display:flex; justify-content:center; align-items:flex-start; padding:2rem; }
+    .cart-container { background:white; padding:2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); width:100%; max-width:600px; }
+    .cart-container h2 { margin-bottom:1rem; font-size:1.75rem; font-weight:700; }
+    #cartItems { list-style:none; padding:0; margin-bottom:1rem; }
+    #cartItems li { padding:0.5rem 0; border-bottom:1px solid #e5e7eb; }
+    #cartTotal { font-size:1.25rem; font-weight:600; margin-top:1rem; }
+    .checkout-btn { display:inline-block; margin-top:1.5rem; padding:0.75rem 1.5rem; background:#2563eb; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600; transition:background 0.3s ease; }
+    .checkout-btn:hover { background:#1e40af; }
+    footer { text-align:center; padding:1.5rem 1rem; background:#1f2937; color:white; margin-top:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">TrendyTees</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Products</a>
+      <a href="cart.html" class="active">Cart <span class="cart-count">0</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cart-container">
+      <h2>Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <p id="cartTotal"></p>
+      <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 TrendyTees. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItemsList = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      cartItemsList.innerHTML = "";
+      let total = 0;
+
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - $${item.price}`;
+        cartItemsList.appendChild(li);
+        total += item.price;
+      });
+
+      cartTotal.textContent = `Total: $${total}`;
+      document.querySelectorAll(".cart-count").forEach(el => el.textContent = cart.length);
+    }
+
+    function proceedToCheckout() {
+      localStorage.removeItem("cart");
+      const container = document.querySelector(".cart-container");
+      container.innerHTML = `
+        <div style="text-align:center; padding:2rem;">
+          <h2>✅ Thank you for shopping with TrendyTees!</h2>
+          <p>Your order has been placed successfully.</p>
+          <a href="shop.html" style="display:inline-block; margin-top:1rem; padding:0.75rem 1.5rem; background:#2563eb; color:white; text-decoration:none; border-radius:6px; font-weight:600;">
+            Continue Shopping
+          </a>
+        </div>
+      `;
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

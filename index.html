@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrendyTees - Home</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; background:#f9fafb; color:#1f2937; }
+    header { background:#1f2937; color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+    nav { display:flex; gap:1.5rem; align-items:center; }
+    nav a { color:white; text-decoration:none; font-weight:600; padding:0.5rem 0.75rem; border-radius:4px; }
+    nav a:hover { background:#2563eb; }
+    nav a.active { background:#2563eb; }
+    .hero { background:url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') center/cover; color:white; padding:6rem 2rem; text-align:center; position:relative; }
+    .hero::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.45); }
+    .hero-content { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+    .hero h1 { font-size:3rem; margin-bottom:0.5rem; text-shadow:0 0 10px rgba(0,0,0,0.7); }
+    .hero p { font-size:1.25rem; margin-bottom:1.5rem; text-shadow:0 0 6px rgba(0,0,0,0.6); }
+    .btn-shop { background:#3b82f6; color:white; padding:0.75rem 2rem; font-size:1.2rem; font-weight:700; border:none; border-radius:6px; text-decoration:none; }
+    .btn-shop:hover { background:#2563eb; }
+    .testimonials-section { background:white; padding:3rem 2rem; max-width:900px; margin:2rem auto; border-radius:8px; text-align:center; }
+    .testimonial { font-style:italic; margin-bottom:1rem; }
+    .testimonial-author { color:#2563eb; font-weight:600; }
+    .newsletter-section { background:#3b82f6; color:white; padding:3rem 2rem; text-align:center; max-width:700px; margin:3rem auto; border-radius:8px; }
+    .newsletter-input { padding:0.75rem 1rem; border:none; border-radius:6px; width:250px; }
+    .newsletter-submit { background:#1e40af; border:none; color:white; font-weight:600; padding:0.75rem 1.5rem; border-radius:6px; cursor:pointer; }
+    footer { text-align:center; padding:1.5rem; background:#1f2937; color:white; margin-top:2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">TrendyTees</a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Products</a>
+      <a href="cart.html">Cart <span class="cart-count">0</span></a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Find Your Perfect Tee</h1>
+      <p>Explore our exclusive collection of trendy T-shirts, crafted for comfort and style.</p>
+      <a href="shop.html" class="btn-shop">Shop Now</a>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <h2>What Our Customers Say</h2>
+    <blockquote class="testimonial">
+      "These tees fit perfectly and feel amazing. My go-to clothing now!"
+      <div class="testimonial-author">— Sarah L.</div>
+    </blockquote>
+    <blockquote class="testimonial">
+      "Excellent quality and fast delivery. Highly recommend TrendyTees!"
+      <div class="testimonial-author">— James K.</div>
+    </blockquote>
+  </section>
+
+  <section class="newsletter-section">
+    <h2>Stay in the Loop</h2>
+    <p>Sign up for our newsletter to get the latest styles and exclusive offers.</p>
+    <form onsubmit="handleNewsletterSignup(event)">
+      <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Enter your email" required />
+      <button type="submit" class="newsletter-submit">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 TrendyTees. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function handleNewsletterSignup(event) {
+      event.preventDefault();
+      const email = document.getElementById("newsletter-email").value;
+      if (email) {
+        alert(`Thank you for subscribing, ${email}!`);
+        document.getElementById("newsletter-email").value = "";
+      }
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.querySelectorAll(".cart-count").forEach(el => el.textContent = cart.length);
+    }
+    updateCartCount();
+  </script>
+</body>
+</html>
